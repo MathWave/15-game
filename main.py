@@ -5,6 +5,7 @@ from time import time
 
 numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '0']
 begin = 0
+solved = False
 
 root = Tk()
 root.title('15-game by MathWave')
@@ -51,43 +52,65 @@ def ZeroPosition():
 
 
 def Up():
-    global numbers
-    n = ZeroPosition()
-    if not (n >= 12 and n <= 15):
-        numbers[n] = numbers[n + 4]
-        numbers[n + 4] = '0'
-    PrintNumbers()
+    global solved
+    if not solved:
+        global numbers
+        n = ZeroPosition()
+        if not (n >= 12 and n <= 15):
+            numbers[n] = numbers[n + 4]
+            numbers[n + 4] = '0'
+        PrintNumbers()
+        if numbers == ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '0']:
+            solved = True
+            result.create_text(200, 25, text=('Пятнашки решены за ' + str(int(time() - begin)) + ' секунд'), fill='white')
 
 
 def Down():
-    global numbers
-    n = ZeroPosition()
-    if not (n >= 0 and n <= 3):
-        numbers[n] = numbers[n - 4]
-        numbers[n - 4] = '0'
-    PrintNumbers()
+    global solved
+    if not solved:
+        global numbers
+        n = ZeroPosition()
+        if not (n >= 0 and n <= 3):
+            numbers[n] = numbers[n - 4]
+            numbers[n - 4] = '0'
+        PrintNumbers()
+        if numbers == ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '0']:
+            solved = True
+            result.create_text(200, 25, text=('Пятнашки решены за ' + str(int(time() - begin)) + ' секунд'), fill='white')
 
 
 def Left():
-    global numbers
-    n = ZeroPosition()
-    if (n + 1) % 4 != 0:
-        numbers[n] = numbers[n + 1]
-        numbers[n + 1] = '0'
-    PrintNumbers()
+    global solved
+    if not solved:
+        global numbers
+        n = ZeroPosition()
+        if (n + 1) % 4 != 0:
+            numbers[n] = numbers[n + 1]
+            numbers[n + 1] = '0'
+        PrintNumbers()
+        if numbers == ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '0']:
+            solved = True
+            result.create_text(200, 25, text=('Пятнашки решены за ' + str(int(time() - begin)) + ' секунд'), fill='white')
 
 
 def Right():
-    global numbers
-    n = ZeroPosition()
-    if n % 4 != 0:
-        numbers[n] = numbers[n - 1]
-        numbers[n - 1] = '0'
-    PrintNumbers()
+    global solved
+    if not solved:
+        global numbers
+        n = ZeroPosition()
+        if n % 4 != 0:
+            numbers[n] = numbers[n - 1]
+            numbers[n - 1] = '0'
+        PrintNumbers()
+        if numbers == ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '0']:
+            solved = True
+            result.create_text(200, 25, text=('Пятнашки решены за ' + str(int(time() - begin)) + ' секунд'), fill='white')
 
 
 def Mix():
+    global solved
     for i in range(100):
+        solved = False
         n = randrange(4)
         if n == 0:
             Up()
@@ -97,6 +120,7 @@ def Mix():
             Left()
         else:
             Right()
+    result.delete('all')
 
 
 def Start():
@@ -107,11 +131,8 @@ def Start():
 
 
 def Stop():
-    global begin
-    if numbers == ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '0']:
-        result.create_text(200, 25, text=('Пятнашки решены за ' + str(int(time() - begin)) + ' секунд'), fill='white')
-    else:
-        result.create_text(200, 25, text='Вы не решили пятнашки:(', fill='white')
+    result.delete('all')
+    canvas.delete('all')
 
 ########################################################################################################################
 
