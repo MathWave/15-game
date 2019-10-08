@@ -109,7 +109,7 @@ def Right():
 
 def Mix():
     global solved
-    for i in range(100):
+    for i in range(1000):
         solved = False
         n = randrange(4)
         if n == 0:
